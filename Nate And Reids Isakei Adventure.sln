@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Nate and Reids Isakei Adventure", "Level Builder.vcxproj", "{B64428C6-C2CF-46FA-9F50-81E30BBBA21D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LDtkLoader", "..\LDtkLoader\LDtkLoader.vcxproj", "{700CCD2A-35BE-40F3-BFE3-6AB96BDE5A1C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LDtkLoader", "LDtkLoader\LDtkLoader.vcxproj", "{700CCD2A-35BE-40F3-BFE3-6AB96BDE5A1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
