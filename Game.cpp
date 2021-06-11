@@ -224,11 +224,25 @@ void Game::CreateDevice()
 
     m_spriteBatch = std::make_unique<SpriteBatch>(m_d3dContext.Get());
 
-    world.loadFromFile("castle.ldtk");
+    m_world.loadFromFile("castle.ldtk");
+    const auto& level = m_world.getLevel("level_0");
+    for (const auto& layer : level.allLayers())
+    {
+        if (layer.hasTileset())
+        {
+            const auto& tileset = layer.getTileset();
+            auto m = m_tileset_textures.find(tileset.path);
 
-    const auto& level = world.getLevel("level_0");
-
-
+            // we haven't seen this tileset path yet
+            if (m == m_tileset_textures.end())
+            {
+                ComPtr<ID3D11ShaderResourceView> t;
+                m_tileset_textures.insert(std::pair<std::string, ComPtr<ID3D11ShaderResourceView>>(tileset.path, t));
+                DX::ThrowIfFailed(
+                    CreateWICTextureFromFile(m_d3dDevice.Get(), tileset.path, nullptr, t.ReleaseAndGetAddressOf()));
+            }
+        }
+    }
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -330,6 +344,11 @@ void Game::CreateResources()
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
+
+    for (auto& t : m_tileset_textures)
+    {
+        t.second.Reset();
+    }
 
     m_spriteBatch.reset();
 

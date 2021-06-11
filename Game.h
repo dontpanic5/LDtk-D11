@@ -76,5 +76,7 @@ private:
 
     std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
 
-    ldtk::World world;
+    ldtk::World m_world;
+
+    std::map <std::string, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_tileset_textures;
 };

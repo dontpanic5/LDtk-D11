@@ -176,6 +176,8 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="ScrollingBackground.h" />
     <ClInclude Include="StepTimer.h" />
+    <ClInclude Include="utf8conv.h" />
+    <ClInclude Include="utf8except.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />

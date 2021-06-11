@@ -12,6 +12,8 @@
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="AnimatedTexture.h" />
     <ClInclude Include="ScrollingBackground.h" />
+    <ClInclude Include="utf8conv.h" />
+    <ClInclude Include="utf8except.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
