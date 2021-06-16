@@ -8,7 +8,7 @@
 #include "AnimatedTexture.h"
 #include "ScrollingBackground.h"
 
-#include "LDtkLoader/World.hpp"
+#include "World.hpp"
 
 
 // A basic game implementation that creates a D3D11 device and
@@ -77,6 +77,7 @@ private:
     std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
 
     ldtk::World m_world;
+    std::string m_level;
 
     std::map <std::string, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_tileset_textures;
 };

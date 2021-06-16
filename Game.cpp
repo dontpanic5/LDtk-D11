@@ -4,7 +4,14 @@
 
 #include "pch.h"
 #include "Game.h"
+#include "utf8conv.h"
+
+#include "Layer.hpp"
+#include "Level.hpp"
+#include "World.hpp"
+
 #include <iostream>
+#include <stdexcept>
 
 extern void ExitGame() noexcept;
 
@@ -74,6 +81,28 @@ void Game::Render()
     // TODO: Add your rendering code here.
 
     m_spriteBatch->Begin();
+
+    // get the tile in the first position
+    const auto& level = m_world.getLevel(m_level);
+    for (const auto& layer : level.allLayers())
+    {
+
+        // TODO check type of layer
+
+        if (layer.hasTileset())
+        {
+            auto& texture = m_tileset_textures.find(layer.getTileset().name);
+            if (texture == m_tileset_textures.end())
+                throw std::runtime_error("Layer specifies tileset that has not been loaded");
+
+            for (const auto& tile : layer.allTiles())
+            {
+                // find that tile in the tileset
+                // draw the tile
+                m_spriteBatch->Draw(texture->second, XMFLOAT2(tile.position.x)
+            }
+        }
+    }
 
     m_spriteBatch->End();
 
@@ -225,7 +254,8 @@ void Game::CreateDevice()
     m_spriteBatch = std::make_unique<SpriteBatch>(m_d3dContext.Get());
 
     m_world.loadFromFile("castle.ldtk");
-    const auto& level = m_world.getLevel("level_0");
+    m_level = "Level_0"; // TODO do this smarter
+    const auto& level = m_world.getLevel(m_level);
     for (const auto& layer : level.allLayers())
     {
         if (layer.hasTileset())
@@ -238,8 +268,12 @@ void Game::CreateDevice()
             {
                 ComPtr<ID3D11ShaderResourceView> t;
                 m_tileset_textures.insert(std::pair<std::string, ComPtr<ID3D11ShaderResourceView>>(tileset.path, t));
-                DX::ThrowIfFailed(
-                    CreateWICTextureFromFile(m_d3dDevice.Get(), tileset.path, nullptr, t.ReleaseAndGetAddressOf()));
+                DX::ThrowIfFailed(CreateWICTextureFromFile(
+                    m_d3dDevice.Get(),
+                    Utf8ToUtf16(tileset.path).c_str(),
+                    nullptr,
+                    t.ReleaseAndGetAddressOf()
+                    ));
             }
         }
     }
@@ -303,6 +337,7 @@ void Game::CreateResources()
         swapChainDesc.SampleDesc.Quality = 0;
         swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
         swapChainDesc.BufferCount = backBufferCount;
+        swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 
         DXGI_SWAP_CHAIN_FULLSCREEN_DESC fsSwapChainDesc = {};
         fsSwapChainDesc.Windowed = TRUE;
@@ -351,6 +386,7 @@ void Game::OnDeviceLost()
     }
 
     m_spriteBatch.reset();
+
 
     m_depthStencilView.Reset();
     m_renderTargetView.Reset();
