@@ -91,7 +91,8 @@ void Game::Render()
 
         if (layer.hasTileset())
         {
-            auto& texture = m_tileset_textures.find(layer.getTileset().name);
+            const auto& tileset = layer.getTileset();
+            auto texture = m_tileset_textures.find(tileset.path);
             if (texture == m_tileset_textures.end())
                 throw std::runtime_error("Layer specifies tileset that has not been loaded");
 
@@ -99,7 +100,18 @@ void Game::Render()
             {
                 // find that tile in the tileset
                 // draw the tile
-                m_spriteBatch->Draw(texture->second, XMFLOAT2(tile.position.x)
+                // TODO calculate padding and such
+
+                RECT src;
+                src.left = tile.texture_position.x;
+                src.top = tile.texture_position.y;
+                src.right = tile.texture_position.x + tileset.tile_size;
+                src.bottom = tile.texture_position.y + tileset.tile_size;
+                m_spriteBatch->Draw(
+                    texture->second.Get(),
+                    XMFLOAT2(static_cast<float>(tile.position.x), static_cast<float>(tile.position.y)),
+                    &src
+                );
             }
         }
     }
@@ -337,7 +349,8 @@ void Game::CreateResources()
         swapChainDesc.SampleDesc.Quality = 0;
         swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
         swapChainDesc.BufferCount = backBufferCount;
-        swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+        // TODO make this configurable for win 10 vs older versions
+        swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
         DXGI_SWAP_CHAIN_FULLSCREEN_DESC fsSwapChainDesc = {};
         fsSwapChainDesc.Windowed = TRUE;
