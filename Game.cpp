@@ -80,23 +80,24 @@ void Game::Render()
 
     // TODO: Add your rendering code here.
 
-    m_spriteBatch->Begin();
+    m_spriteBatch->Begin(SpriteSortMode_Deferred, m_states->NonPremultiplied());
 
     // get the tile in the first position
     const auto& level = m_world.getLevel(m_level);
-    for (const auto& layer : level.allLayers())
+    const auto& layers = level.allLayers();
+    auto it = layers.rbegin();
+    while (it != layers.rend())
     {
-
         // TODO check type of layer
 
-        if (layer.hasTileset())
+        if (it->hasTileset())
         {
-            const auto& tileset = layer.getTileset();
+            const auto& tileset = it->getTileset();
             auto texture = m_tileset_textures.find(tileset.path);
             if (texture == m_tileset_textures.end())
                 throw std::runtime_error("Layer specifies tileset that has not been loaded");
 
-            for (const auto& tile : layer.allTiles())
+            for (const auto& tile : it->allTiles())
             {
                 // find that tile in the tileset
                 // draw the tile
@@ -114,6 +115,7 @@ void Game::Render()
                 );
             }
         }
+        it++;
     }
 
     m_spriteBatch->End();
@@ -265,8 +267,8 @@ void Game::CreateDevice()
 
     m_spriteBatch = std::make_unique<SpriteBatch>(m_d3dContext.Get());
 
-    m_world.loadFromFile("castle.ldtk");
-    m_level = "Level_0"; // TODO do this smarter
+    m_world.loadFromFile("AutoLayers_1_basic.ldtk");
+    m_level = "AutoLayer"; // TODO do this smarter
     const auto& level = m_world.getLevel(m_level);
     for (const auto& layer : level.allLayers())
     {
@@ -279,13 +281,13 @@ void Game::CreateDevice()
             if (m == m_tileset_textures.end())
             {
                 ComPtr<ID3D11ShaderResourceView> t;
-                m_tileset_textures.insert(std::pair<std::string, ComPtr<ID3D11ShaderResourceView>>(tileset.path, t));
                 DX::ThrowIfFailed(CreateWICTextureFromFile(
                     m_d3dDevice.Get(),
                     Utf8ToUtf16(tileset.path).c_str(),
                     nullptr,
                     t.ReleaseAndGetAddressOf()
                     ));
+                m_tileset_textures.insert(std::pair<std::string, ComPtr<ID3D11ShaderResourceView>>(tileset.path, t));
             }
         }
     }
