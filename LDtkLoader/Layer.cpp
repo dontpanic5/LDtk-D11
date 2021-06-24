@@ -1,6 +1,7 @@
 // Created by Modar Nasser on 12/11/2020.
 
 #include <iostream>
+#include <algorithm>
 
 #include "Layer.hpp"
 #include "World.hpp"
@@ -20,11 +21,21 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         key = "autoLayerTiles";
         coordId_index = 1;
     }
-    for (const auto& tile : j[key]) {
+
+    const auto a = j[key];
+    for (auto rit = a.rbegin(); rit < a.rend(); ++rit) {
+        const auto& tile = *rit;
         Tile new_tile;
         new_tile.coordId = tile["d"].get<std::vector<int>>()[coordId_index];
         new_tile.position.x = tile["px"].get<std::vector<int>>()[0];
         new_tile.position.y = tile["px"].get<std::vector<int>>()[1];
+
+        auto c = std::count_if(
+            m_tiles.begin(),
+            m_tiles.end(),
+            [&new_tile](const Tile& t) {return t.position == new_tile.position;}
+        );
+        if (c > 0) continue;
 
         new_tile.world_position.x = static_cast<int>(new_tile.position.x) + l->position.x;
         new_tile.world_position.y = static_cast<int>(new_tile.position.y) + l->position.y;
