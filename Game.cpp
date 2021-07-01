@@ -89,6 +89,7 @@ void Game::Render()
     while (it != layers.rend())
     {
         // TODO check type of layer
+        //layer.getType()
 
         if (it->hasTileset())
         {
@@ -267,8 +268,8 @@ void Game::CreateDevice()
 
     m_spriteBatch = std::make_unique<SpriteBatch>(m_d3dContext.Get());
 
-    m_world.loadFromFile("AutoLayers_1_basic.ldtk");
-    m_level = "AutoLayer"; // TODO do this smarter
+    m_world.loadFromFile("Entities.ldtk");
+    m_level = "Entities_demo";
     const auto& level = m_world.getLevel(m_level);
     for (const auto& layer : level.allLayers())
     {
