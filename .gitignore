@@ -363,10 +363,10 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # cmake
-.build/
-.CMakeFiles/
-.include/LDtkLoader/
-.lib/
+build/
+CMakeFiles/
+include/LDtkLoader/
+lib/
 CMakeCache.txt
 *.ldtk
-.share/
+share/
