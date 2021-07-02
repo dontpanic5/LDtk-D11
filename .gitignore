@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# cmake
+.build/
+.CMakeFiles/
+.include/LDtkLoader/
+.lib/
+CMakeCache.txt
+*.ldtk
+.share/

@@ -8,7 +8,7 @@
 #include "AnimatedTexture.h"
 #include "ScrollingBackground.h"
 
-#include "World.hpp"
+#include "LDtkLoader/World.hpp"
 
 #include <map>
 

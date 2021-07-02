@@ -6,9 +6,9 @@
 #include "Game.h"
 #include "utf8conv.h"
 
-#include "Layer.hpp"
-#include "Level.hpp"
-#include "World.hpp"
+#include "LDtkLoader/Layer.hpp"
+#include "LDtkLoader/Level.hpp"
+#include "LDtkLoader/World.hpp"
 
 #include <iostream>
 #include <stdexcept>

@@ -86,6 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -102,9 +103,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -112,14 +114,14 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;C:\dev\vcpkg\installed\x64-windows\debug\lib\DirectXTK.lib;C:\Program Files\LDtkLoader\lib\LDtkLoader-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/Nate/source/repos/Level Builder/build/Debug/LDtkD11.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/Nate/source/repos/Level Builder/build/Debug/LDtkD11.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -127,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -143,9 +146,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -153,14 +157,14 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;C:\dev\vcpkg\installed\x64-windows\lib\DirectXTK.lib;C:\Program Files\LDtkLoader\lib\LDtkLoader-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/Nate/source/repos/Level Builder/build/Release/LDtkD11.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/Nate/source/repos/Level Builder/build/Release/LDtkD11.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -168,6 +172,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -184,9 +189,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -194,14 +200,14 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;C:\dev\vcpkg\installed\x64-windows\debug\lib\DirectXTK.lib;C:\Program Files\LDtkLoader\lib\LDtkLoader-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/Nate/source/repos/Level Builder/build/MinSizeRel/LDtkD11.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/Nate/source/repos/Level Builder/build/MinSizeRel/LDtkD11.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -209,6 +215,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -224,9 +231,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include\DirectXTK;C:\dev\vcpkg\installed\x64-windows\include\DirectXMath;C:\Program Files\LDtkLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -234,14 +242,14 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;C:\dev\vcpkg\installed\x64-windows\debug\lib\DirectXTK.lib;C:\Program Files\LDtkLoader\lib\LDtkLoader-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/Nate/source/repos/Level Builder/build/RelWithDebInfo/LDtkD11.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/Nate/source/repos/Level Builder/build/RelWithDebInfo/LDtkD11.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -260,7 +268,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCXXCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeRCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderConfig.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderTargets-debug.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderTargets.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCXXCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeRCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeSystem.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\DirectXMath-targets.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\directxmath-config-version.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\directxmath-config.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets-debug.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets-release.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\directxtk-config-version.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\directxtk-config.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Nate/source/repos/Level Builder/CMakeLists.txt</Message>
@@ -273,7 +281,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCXXCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeRCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderConfig.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderTargets-debug.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderTargets.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCXXCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeRCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeSystem.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\DirectXMath-targets.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\directxmath-config-version.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\directxmath-config.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets-debug.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets-release.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\directxtk-config-version.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\directxtk-config.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Nate/source/repos/Level Builder/CMakeLists.txt</Message>
@@ -286,7 +294,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCXXCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeRCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderConfig.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderTargets-debug.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderTargets.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCXXCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeRCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeSystem.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\DirectXMath-targets.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\directxmath-config-version.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\directxmath-config.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets-debug.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets-release.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\directxtk-config-version.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\directxtk-config.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Nate/source/repos/Level Builder/CMakeLists.txt</Message>
@@ -299,7 +307,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCXXCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeRCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderConfig.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderTargets-debug.cmake;C:\Program Files\LDtkLoader\lib\cmake\LDtkLoader\LDtkLoaderTargets.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeCXXCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeRCCompiler.cmake;C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\3.20.3\CMakeSystem.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\DirectXMath-targets.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\directxmath-config-version.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxmath\directxmath-config.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets-debug.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets-release.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\DirectXTK-targets.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\directxtk-config-version.cmake;C:\dev\vcpkg\installed\x64-windows\share\directxtk\directxtk-config.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Nate\source\repos\Level Builder\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>

@@ -16,8 +16,19 @@ C:/Program Files/CMake/share/cmake-3.20/Modules/Platform/Windows-MSVC-CXX.cmake
 C:/Program Files/CMake/share/cmake-3.20/Modules/Platform/Windows-MSVC.cmake
 C:/Program Files/CMake/share/cmake-3.20/Modules/Platform/Windows.cmake
 C:/Program Files/CMake/share/cmake-3.20/Modules/Platform/WindowsPaths.cmake
+C:/Program Files/LDtkLoader/lib/cmake/LDtkLoader/LDtkLoaderConfig.cmake
+C:/Program Files/LDtkLoader/lib/cmake/LDtkLoader/LDtkLoaderTargets-debug.cmake
+C:/Program Files/LDtkLoader/lib/cmake/LDtkLoader/LDtkLoaderTargets.cmake
 C:/Users/Nate/source/repos/Level Builder/CMakeLists.txt
 C:/Users/Nate/source/repos/Level Builder/build/CMakeFiles/3.20.3/CMakeCCompiler.cmake
 C:/Users/Nate/source/repos/Level Builder/build/CMakeFiles/3.20.3/CMakeCXXCompiler.cmake
 C:/Users/Nate/source/repos/Level Builder/build/CMakeFiles/3.20.3/CMakeRCCompiler.cmake
 C:/Users/Nate/source/repos/Level Builder/build/CMakeFiles/3.20.3/CMakeSystem.cmake
+C:/dev/vcpkg/installed/x64-windows/share/directxmath/DirectXMath-targets.cmake
+C:/dev/vcpkg/installed/x64-windows/share/directxmath/directxmath-config-version.cmake
+C:/dev/vcpkg/installed/x64-windows/share/directxmath/directxmath-config.cmake
+C:/dev/vcpkg/installed/x64-windows/share/directxtk/DirectXTK-targets-debug.cmake
+C:/dev/vcpkg/installed/x64-windows/share/directxtk/DirectXTK-targets-release.cmake
+C:/dev/vcpkg/installed/x64-windows/share/directxtk/DirectXTK-targets.cmake
+C:/dev/vcpkg/installed/x64-windows/share/directxtk/directxtk-config-version.cmake
+C:/dev/vcpkg/installed/x64-windows/share/directxtk/directxtk-config.cmake
