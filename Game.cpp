@@ -88,9 +88,6 @@ void Game::Render()
     auto it = layers.rbegin();
     while (it != layers.rend())
     {
-        // TODO check type of layer
-        //layer.getType()
-
         if (it->hasTileset())
         {
             const auto& tileset = it->getTileset();
@@ -109,13 +106,41 @@ void Game::Render()
                 src.top = tile.texture_position.y;
                 src.right = tile.texture_position.x + tileset.tile_size;
                 src.bottom = tile.texture_position.y + tileset.tile_size;
+
+                SpriteEffects se;
+                if (!tile.flipX && !tile.flipY)
+                    se = SpriteEffects_None;
+                else if (tile.flipX && !tile.flipY)
+                    se = SpriteEffects_FlipHorizontally;
+                else if (!tile.flipX) // we don't have to check y
+                    se = SpriteEffects_FlipVertically;
+                else
+                    se = SpriteEffects_FlipBoth;
+
                 m_spriteBatch->Draw(
                     texture->second.Get(),
                     XMFLOAT2(static_cast<float>(tile.position.x), static_cast<float>(tile.position.y)),
-                    &src
+                    &src,
+                    Colors::White,
+                    0.0F,
+                    XMFLOAT2(0.0F, 0.0F),
+                    1.0F,
+                    se
                 );
             }
         }
+        else if (it->getType() == ldtk::LayerType::Entities)
+        {
+            auto& all_entities = it->allEntities();
+            for (const auto& n : all_entities)
+            {
+                for (const auto& e : n.second)
+                {
+
+                }
+            }
+        }
+
         it++;
     }
 
