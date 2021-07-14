@@ -91,9 +91,7 @@ void Game::Render()
         if (it->hasTileset())
         {
             const auto& tileset = it->getTileset();
-            auto texture = m_tileset_textures.find(tileset.path);
-            if (texture == m_tileset_textures.end())
-                throw std::runtime_error("Layer specifies tileset that has not been loaded");
+            auto texture = GetTexture(tileset.path);
 
             for (const auto& tile : it->allTiles())
             {
@@ -118,7 +116,7 @@ void Game::Render()
                     se = SpriteEffects_FlipBoth;
 
                 m_spriteBatch->Draw(
-                    texture->second.Get(),
+                    texture.Get(),
                     XMFLOAT2(static_cast<float>(tile.position.x), static_cast<float>(tile.position.y)),
                     &src,
                     Colors::White,
@@ -131,13 +129,26 @@ void Game::Render()
         }
         else if (it->getType() == ldtk::LayerType::Entities)
         {
-            auto& all_entities = it->allEntities();
-            for (const auto& n : all_entities)
+            for (const auto& entity : it->allEntities())
             {
-                for (const auto& e : n.second)
-                {
+                std::string path;
 
-                }
+                if (!entity.hasTile())
+                    continue;
+
+                auto texture = GetTexture(entity.getTileset().path);
+                auto rect = entity.getTilesetRect();
+                RECT src;
+                src.left = rect.x;
+                src.top = rect.y;
+                src.right = rect.x + rect.width;
+                src.bottom = rect.y + rect.height;
+
+                m_spriteBatch->Draw(
+                    texture.Get(),
+                    XMFLOAT2(static_cast<float>(entity.getPosition().x), static_cast<float>(entity.getPosition().y)),
+                    &src
+                );
             }
         }
 
@@ -147,6 +158,14 @@ void Game::Render()
     m_spriteBatch->End();
 
     Present();
+}
+
+ComPtr<ID3D11ShaderResourceView> Game::GetTexture(std::string path)
+{
+    auto i = m_tileset_textures.find(path);
+    if (i == m_tileset_textures.end())
+        throw std::runtime_error("Layer specifies tileset that has not been loaded");
+    return i->second;
 }
 
 // Helper method to clear the back buffers.
@@ -295,26 +314,22 @@ void Game::CreateDevice()
 
     m_world.loadFromFile("Entities.ldtk");
     m_level = "Entities_demo";
-    const auto& level = m_world.getLevel(m_level);
-    for (const auto& layer : level.allLayers())
-    {
-        if (layer.hasTileset())
-        {
-            const auto& tileset = layer.getTileset();
-            auto m = m_tileset_textures.find(tileset.path);
 
-            // we haven't seen this tileset path yet
-            if (m == m_tileset_textures.end())
-            {
-                ComPtr<ID3D11ShaderResourceView> t;
-                DX::ThrowIfFailed(CreateWICTextureFromFile(
-                    m_d3dDevice.Get(),
-                    Utf8ToUtf16(tileset.path).c_str(),
-                    nullptr,
-                    t.ReleaseAndGetAddressOf()
-                    ));
-                m_tileset_textures.insert(std::pair<std::string, ComPtr<ID3D11ShaderResourceView>>(tileset.path, t));
-            }
+    for (auto& ts : m_world.allTilesets())
+    {
+        auto m = m_tileset_textures.find(ts.path);
+
+        // we haven't seen this tileset path yet
+        if (m == m_tileset_textures.end())
+        {
+            ComPtr<ID3D11ShaderResourceView> texture;
+            DX::ThrowIfFailed(CreateWICTextureFromFile(
+                m_d3dDevice.Get(),
+                Utf8ToUtf16(ts.path).c_str(),
+                nullptr,
+                texture.ReleaseAndGetAddressOf()
+            ));
+            m_tileset_textures.insert(std::pair<std::string, ComPtr<ID3D11ShaderResourceView>>(ts.path, texture));
         }
     }
 }

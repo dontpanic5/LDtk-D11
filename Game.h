@@ -57,6 +57,8 @@ private:
 
     void OnDeviceLost();
 
+    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> GetTexture(std::string);
+
     // Device resources.
     HWND                                            m_window;
     int                                             m_outputWidth;
