@@ -144,10 +144,20 @@ void Game::Render()
                 src.right = rect.x + rect.width;
                 src.bottom = rect.y + rect.height;
 
+                auto& pivot = entity.getPivot();
+                XMFLOAT2 pos(
+                    static_cast<float>(entity.getPosition().x) - pivot.x * static_cast<float>(entity.getSize().x),
+                    static_cast<float>(entity.getPosition().y) - pivot.y * static_cast<float>(entity.getSize().y)
+                );
+
                 m_spriteBatch->Draw(
                     texture.Get(),
-                    XMFLOAT2(static_cast<float>(entity.getPosition().x), static_cast<float>(entity.getPosition().y)),
-                    &src
+                    pos,
+                    &src,
+                    Colors::White,
+                    0.0F,
+                    XMFLOAT2(0.0F, 0.0F),
+                    XMFLOAT2(static_cast<float>(entity.getSize().x) / static_cast<float>(rect.width), static_cast<float>(entity.getSize().y) / static_cast<float>(rect.height))
                 );
             }
         }
