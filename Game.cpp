@@ -78,11 +78,19 @@ void Game::Render()
 
     Clear();
 
-    // TODO: Add your rendering code here.
+    auto matrix = DirectX::XMMatrixIdentity();
+    matrix *= DirectX::XMMatrixScaling(2, 2, 1);
 
-    m_spriteBatch->Begin(SpriteSortMode_Deferred, m_states->NonPremultiplied());
+    m_spriteBatch->Begin(
+        SpriteSortMode_Deferred,
+        m_states->NonPremultiplied(),
+        m_states->PointClamp(),
+        nullptr,
+        nullptr,
+        nullptr,
+        matrix
+    );
 
-    // get the tile in the first position
     const auto& level = m_world.getLevel(m_level);
     const auto& layers = level.allLayers();
     auto it = layers.rbegin();
@@ -97,7 +105,6 @@ void Game::Render()
             {
                 // find that tile in the tileset
                 // draw the tile
-                // TODO calculate padding and such
 
                 RECT src;
                 src.left = tile.texture_position.x;
@@ -131,10 +138,13 @@ void Game::Render()
         {
             for (const auto& entity : it->allEntities())
             {
-                std::string path;
+                auto pos = GetPos(entity);
 
+                // TODO draw based on shape
                 if (!entity.hasTile())
-                    continue;
+                {
+                    
+                }
 
                 auto texture = GetTexture(entity.getTileset().path);
                 auto rect = entity.getTilesetRect();
@@ -143,12 +153,6 @@ void Game::Render()
                 src.top = rect.y;
                 src.right = rect.x + rect.width;
                 src.bottom = rect.y + rect.height;
-
-                auto& pivot = entity.getPivot();
-                XMFLOAT2 pos(
-                    static_cast<float>(entity.getPosition().x) - pivot.x * static_cast<float>(entity.getSize().x),
-                    static_cast<float>(entity.getPosition().y) - pivot.y * static_cast<float>(entity.getSize().y)
-                );
 
                 m_spriteBatch->Draw(
                     texture.Get(),
@@ -168,6 +172,15 @@ void Game::Render()
     m_spriteBatch->End();
 
     Present();
+}
+
+XMFLOAT2 GetPos(const ldtk::Entity& e)
+{
+    auto& pivot = e.getPivot();
+    return XMFLOAT2(
+        static_cast<float>(e.getPosition().x) - pivot.x * static_cast<float>(e.getSize().x),
+        static_cast<float>(e.getPosition().y) - pivot.y * static_cast<float>(e.getSize().y)
+    );
 }
 
 ComPtr<ID3D11ShaderResourceView> Game::GetTexture(std::string path)
@@ -316,9 +329,25 @@ void Game::CreateDevice()
     DX::ThrowIfFailed(device.As(&m_d3dDevice));
     DX::ThrowIfFailed(context.As(&m_d3dContext));
 
-    // TODO: Initialize device dependent objects here (independent of window size).
+    // Initialize device dependent objects here (independent of window size).
     
     m_states = std::make_unique<CommonStates>(m_d3dDevice.Get());
+
+    m_effect = std::make_unique<BasicEffect>(m_d3dDevice.Get());
+    m_effect->SetVertexColorEnabled(true);
+
+    void const* shaderByteCode;
+    size_t byteCodeLength;
+
+    m_effect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
+
+    DX::ThrowIfFailed(
+        m_d3dDevice->CreateInputLayout(VertexType::InputElements,
+            VertexType::InputElementCount,
+            shaderByteCode, byteCodeLength,
+            m_inputLayout.ReleaseAndGetAddressOf()));
+
+    m_batch = std::make_unique<PrimitiveBatch<VertexType>>(m_d3dContext.Get());
 
     m_spriteBatch = std::make_unique<SpriteBatch>(m_d3dContext.Get());
 
