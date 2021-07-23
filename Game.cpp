@@ -5,6 +5,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "utf8conv.h"
+#include "Utilities.h"
 
 #include "LDtkLoader/Layer.hpp"
 #include "LDtkLoader/Level.hpp"
@@ -22,8 +23,9 @@ using Microsoft::WRL::ComPtr;
 
 Game::Game() noexcept :
     m_window(nullptr),
-    m_outputWidth(800),
-    m_outputHeight(600),
+    // TODO WHY IS THIS HERE IF IT'S NOT USED?
+    m_outputWidth(1600),
+    m_outputHeight(800),
     m_featureLevel(D3D_FEATURE_LEVEL_9_1)
 {
 }
@@ -136,33 +138,28 @@ void Game::Render()
         }
         else if (it->getType() == ldtk::LayerType::Entities)
         {
-            for (const auto& entity : it->allEntities())
+            for (auto& entity : it->allEntities())
             {
-                auto pos = GetPos(entity);
-
-                // TODO draw based on shape
-                if (!entity.hasTile())
+                if (entity.hasTile())
                 {
-                    
+                    auto texture = GetTexture(entity.getTileset().path);
+                    auto rect = entity.getTilesetRect();
+                    RECT src;
+                    src.left = rect.x;
+                    src.top = rect.y;
+                    src.right = rect.x + rect.width;
+                    src.bottom = rect.y + rect.height;
+
+                    m_spriteBatch->Draw(
+                        texture.Get(),
+                        GetPos(entity),
+                        &src,
+                        Colors::White,
+                        0.0F,
+                        XMFLOAT2(0.0F, 0.0F),
+                        XMFLOAT2(static_cast<float>(entity.getSize().x) / static_cast<float>(rect.width), static_cast<float>(entity.getSize().y) / static_cast<float>(rect.height))
+                    );
                 }
-
-                auto texture = GetTexture(entity.getTileset().path);
-                auto rect = entity.getTilesetRect();
-                RECT src;
-                src.left = rect.x;
-                src.top = rect.y;
-                src.right = rect.x + rect.width;
-                src.bottom = rect.y + rect.height;
-
-                m_spriteBatch->Draw(
-                    texture.Get(),
-                    pos,
-                    &src,
-                    Colors::White,
-                    0.0F,
-                    XMFLOAT2(0.0F, 0.0F),
-                    XMFLOAT2(static_cast<float>(entity.getSize().x) / static_cast<float>(rect.width), static_cast<float>(entity.getSize().y) / static_cast<float>(rect.height))
-                );
             }
         }
 
@@ -172,15 +169,6 @@ void Game::Render()
     m_spriteBatch->End();
 
     Present();
-}
-
-XMFLOAT2 GetPos(const ldtk::Entity& e)
-{
-    auto& pivot = e.getPivot();
-    return XMFLOAT2(
-        static_cast<float>(e.getPosition().x) - pivot.x * static_cast<float>(e.getSize().x),
-        static_cast<float>(e.getPosition().y) - pivot.y * static_cast<float>(e.getSize().y)
-    );
 }
 
 ComPtr<ID3D11ShaderResourceView> Game::GetTexture(std::string path)
@@ -261,8 +249,8 @@ void Game::OnWindowSizeChanged(int width, int height)
 void Game::GetDefaultSize(int& width, int& height) const noexcept
 {
     // TODO: Change to desired default window size (note minimum size is 320x200).
-    width = 800;
-    height = 600;
+    width = 1600;
+    height = 800;
 }
 
 // These are the resources that depend on the device.
@@ -468,12 +456,12 @@ void Game::CreateResources()
     CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
     DX::ThrowIfFailed(m_d3dDevice->CreateDepthStencilView(depthStencil.Get(), &depthStencilViewDesc, m_depthStencilView.ReleaseAndGetAddressOf()));
 
-    // TODO: Initialize windows-size dependent objects here.
+    // Initialize windows-size dependent objects here.
 }
 
 void Game::OnDeviceLost()
 {
-    // TODO: Add Direct3D resource cleanup here.
+    // Add Direct3D resource cleanup here.
 
     for (auto& t : m_tileset_textures)
     {

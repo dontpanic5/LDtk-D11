@@ -5,8 +5,8 @@
 #pragma once
 
 #include "StepTimer.h"
-#include "AnimatedTexture.h"
-#include "ScrollingBackground.h"
+//#include "AnimatedTexture.h"
+//#include "ScrollingBackground.h"
 
 #include "LDtkLoader/World.hpp"
 
