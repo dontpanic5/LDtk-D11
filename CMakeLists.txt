@@ -10,7 +10,7 @@ find_package(directxmath CONFIG REQUIRED)
 find_package(LDtkLoader)
 
 # add the executable
-add_executable(LDtkD11 WIN32 Game.cpp Main.cpp pch.cpp)
+add_executable(LDtkD11 WIN32 Game.cpp Main.cpp pch.cpp Utilities.cpp EntityWrapper.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	d3d11.lib dxgi.lib dxguid.lib uuid.lib

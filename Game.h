@@ -8,6 +8,8 @@
 //#include "AnimatedTexture.h"
 //#include "ScrollingBackground.h"
 
+#include "EntityWrapper.h"
+
 #include "LDtkLoader/World.hpp"
 
 #include <map>
@@ -74,6 +76,8 @@ private:
 
     // Rendering loop timer.
     DX::StepTimer                                   m_timer;
+
+    std::map <std::string, std::vector<EntityWrapper>> m_wrapped_entities_of_layers;
 
 
     std::unique_ptr<DirectX::CommonStates> m_states;

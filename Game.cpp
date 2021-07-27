@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 
 extern void ExitGame() noexcept;
 
@@ -28,6 +29,19 @@ Game::Game() noexcept :
     m_outputHeight(800),
     m_featureLevel(D3D_FEATURE_LEVEL_9_1)
 {
+    const auto& level = m_world.getLevel(m_level);
+    auto& layers = level.allLayers();
+    auto it = layers.begin();
+    while (it != layers.end())
+    {
+        if (it->getType() == ldtk::LayerType::Entities)
+        {
+            std::vector<EntityWrapper> wrapped_entities;
+            for_each(it->allEntities().begin(), it->allEntities().end(), [&](const ldtk::Entity& e) { wrapped_entities.emplace_back(e); });
+            m_wrapped_entities_of_layers.insert(std::pair<std::string, std::vector<EntityWrapper>>(it->getName(), wrapped_entities));
+        }
+        ++it;
+    }
 }
 
 // Initialize the Direct3D resources required to run.
@@ -137,10 +151,9 @@ void Game::Render()
             }
         }
         else if (it->getType() == ldtk::LayerType::Entities)
-        {
-            for (auto& entity : it->allEntities())
+            for (auto& wrapped_entity : m_wrapped_entities_of_layers[it->getName()])
             {
-                if (entity.hasTile())
+                if (wrapped_entity.hasTile())
                 {
                     auto texture = GetTexture(entity.getTileset().path);
                     auto rect = entity.getTilesetRect();
