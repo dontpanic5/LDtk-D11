@@ -1,7 +1,7 @@
 #include "EntityWrapper.h"
 #include "LDtkLoader/Entity.hpp"
 
-EntityWrapper::EntityWrapper(const ldtk::Entity& e) :m_entity(e)
+EntityWrapper::EntityWrapper(const ldtk::Entity& e) :m_entity(e), m_pos(e.getPosition())
 {
 	try {
 		auto& patrol = m_entity.getArrayField<ldtk::IntPoint>("patrol");
@@ -11,7 +11,19 @@ EntityWrapper::EntityWrapper(const ldtk::Entity& e) :m_entity(e)
 	catch (std::invalid_argument& err)
 	{
 	}
+}
 
-	m_pos[0] = static_cast<float>(e.getPosition().x);
-	m_pos[1] = static_cast<float>(e.getPosition().y);
+const ldtk::Entity& EntityWrapper::GetEntity()
+{
+	return m_entity;
+}
+
+const ldtk::IntPoint& EntityWrapper::GetPos()
+{
+	return m_pos;
+}
+
+void EntityWrapper::Move(float elapsedTime)
+{
+	// TODO MATH
 }
