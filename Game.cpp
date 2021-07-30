@@ -29,6 +29,9 @@ Game::Game() noexcept :
 	m_outputHeight(800),
 	m_featureLevel(D3D_FEATURE_LEVEL_9_1)
 {
+	m_world.loadFromFile("Entities.ldtk");
+	m_level = "Entities_demo";
+
 	const auto& level = m_world.getLevel(m_level);
 	auto& layers = level.allLayers();
 	auto it = layers.begin();
@@ -37,7 +40,7 @@ Game::Game() noexcept :
 		if (it->getType() == ldtk::LayerType::Entities)
 		{
 			std::vector<EntityWrapper> wrapped_entities;
-			for_each(it->allEntities().begin(), it->allEntities().end(), [&](const ldtk::Entity& e) { wrapped_entities.emplace_back(e); });
+			for_each(it->allEntities().begin(), it->allEntities().end(), [&](const ldtk::Entity& e) { wrapped_entities.emplace_back(e, m_world.getDefaultCellSize()); });
 			m_wrapped_entities_of_layers.insert(std::pair<std::string, std::vector<EntityWrapper>>(it->getName(), wrapped_entities));
 		}
 		++it;
@@ -165,19 +168,19 @@ void Game::Render()
 				if (!entity.hasTile()) continue;
 
 				auto texture = GetTexture(entity.getTileset().path);
-				auto rect = entity.getTilesetRect();
+				auto rect = entity.getTextureRect();
 				RECT src;
 				src.left = rect.x;
 				src.top = rect.y;
 				src.right = rect.x + rect.width;
 				src.bottom = rect.y + rect.height;
 
-
-				auto pos = GetPos(entity, wrapped_entity.GetPos());
+				// minus width and height to subtract transform
+				ldtk::Point<float> pos = TransformByPivot(entity.getPivot(), wrapped_entity.GetPos(), -entity.getSize().x, -entity.getSize().y);
 
 				m_spriteBatch->Draw(
 					texture.Get(),
-					pos,
+					XMFLOAT2(pos.x, pos.y),
 					&src,
 					Colors::White,
 					0.0F,
@@ -362,9 +365,6 @@ void Game::CreateDevice()
 	m_batch = std::make_unique<PrimitiveBatch<VertexType>>(m_d3dContext.Get());
 
 	m_spriteBatch = std::make_unique<SpriteBatch>(m_d3dContext.Get());
-
-	m_world.loadFromFile("Entities.ldtk");
-	m_level = "Entities_demo";
 
 	for (auto& ts : m_world.allTilesets())
 	{

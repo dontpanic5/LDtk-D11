@@ -3,11 +3,11 @@
 
 using namespace DirectX;
 
-XMFLOAT2 GetPos(const ldtk::Entity& e, const ldtk::IntPoint& cur_pos)
+//template<typename T>
+ldtk::Point<float> TransformByPivot(const ldtk::FloatPoint& pivot, const ldtk::Point<float>& cur_pos, const int size_x, const int size_y)
 {
-    auto& pivot = e.getPivot();
-    return XMFLOAT2(
-        static_cast<float>(cur_pos.x) - pivot.x * static_cast<float>(e.getSize().x),
-        static_cast<float>(cur_pos.y) - pivot.y * static_cast<float>(e.getSize().y)
-    );
+	return ldtk::Point<float>(
+		static_cast<float>(cur_pos.x - pivot.x * size_x),
+		static_cast<float>(cur_pos.y - pivot.y * size_y)
+	);
 }
