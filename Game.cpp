@@ -444,20 +444,34 @@ void Game::CreateResources()
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.BufferCount = backBufferCount;
 		// TODO make this configurable for win 10 vs older versions
-		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC fsSwapChainDesc = {};
 		fsSwapChainDesc.Windowed = TRUE;
 
 		// Create a SwapChain from a Win32 window.
-		DX::ThrowIfFailed(dxgiFactory->CreateSwapChainForHwnd(
+		auto hr = dxgiFactory->CreateSwapChainForHwnd(
 			m_d3dDevice.Get(),
 			m_window,
 			&swapChainDesc,
 			&fsSwapChainDesc,
 			nullptr,
 			m_swapChain.ReleaseAndGetAddressOf()
-		));
+		);
+		// invalid param, possibly the swap chain type isn't supported. Let's try another
+		if (hr == 0x887A0001)
+		{
+			swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+			hr = dxgiFactory->CreateSwapChainForHwnd(
+				m_d3dDevice.Get(),
+				m_window,
+				&swapChainDesc,
+				&fsSwapChainDesc,
+				nullptr,
+				m_swapChain.ReleaseAndGetAddressOf()
+			);
+		}
+		DX::ThrowIfFailed(hr);
 
 		// This template does not support exclusive fullscreen mode and prevents DXGI from responding to the ALT+ENTER shortcut.
 		DX::ThrowIfFailed(dxgiFactory->MakeWindowAssociation(m_window, DXGI_MWA_NO_ALT_ENTER));
