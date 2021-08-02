@@ -355,22 +355,6 @@ void Game::CreateDevice()
 
 	m_states = std::make_unique<CommonStates>(m_d3dDevice.Get());
 
-	m_effect = std::make_unique<BasicEffect>(m_d3dDevice.Get());
-	m_effect->SetVertexColorEnabled(true);
-
-	void const* shaderByteCode;
-	size_t byteCodeLength;
-
-	m_effect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
-
-	DX::ThrowIfFailed(
-		m_d3dDevice->CreateInputLayout(VertexType::InputElements,
-			VertexType::InputElementCount,
-			shaderByteCode, byteCodeLength,
-			m_inputLayout.ReleaseAndGetAddressOf()));
-
-	m_batch = std::make_unique<PrimitiveBatch<VertexType>>(m_d3dContext.Get());
-
 	m_spriteBatch = std::make_unique<SpriteBatch>(m_d3dContext.Get());
 
 	for (auto& ts : m_world.allTilesets())

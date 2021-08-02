@@ -81,12 +81,6 @@ private:
 
 
     std::unique_ptr<DirectX::CommonStates> m_states;
-    std::unique_ptr<DirectX::BasicEffect> m_effect;
-
-    using VertexType = DirectX::VertexPositionColor;
-
-    std::unique_ptr<DirectX::PrimitiveBatch<VertexType>> m_batch;
-    Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
     std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
 
