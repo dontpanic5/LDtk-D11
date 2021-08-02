@@ -28,10 +28,11 @@ Game::Game() noexcept :
 	m_outputHeight(800),
 	m_featureLevel(D3D_FEATURE_LEVEL_9_1)
 {
-	m_world.loadFromFile("Entities.ldtk");
-	m_level = "Entities_demo";
+	m_world.loadFromFile("AutoLayers_1_basic.ldtk");
+	const auto& all_levels = m_world.allLevels();
+	const auto& level = all_levels[0];
+	m_level = level.name;
 
-	const auto& level = m_world.getLevel(m_level);
 	auto& layers = level.allLayers();
 	auto it = layers.begin();
 	while (it != layers.end())
@@ -209,7 +210,14 @@ ComPtr<ID3D11ShaderResourceView> Game::GetTexture(std::string path)
 void Game::Clear()
 {
 	// Clear the views.
-	m_d3dContext->ClearRenderTargetView(m_renderTargetView.Get(), Colors::CornflowerBlue);
+	auto c = m_world.getLevel(m_level).bg_color;
+	FLOAT f_c[4] = {
+		static_cast<FLOAT>(c.r) / 255,
+		static_cast<FLOAT>(c.g) / 255,
+		static_cast<FLOAT>(c.b) / 255,
+		static_cast<FLOAT>(c.a) / 255,
+	};
+	m_d3dContext->ClearRenderTargetView(m_renderTargetView.Get(), f_c);
 	m_d3dContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	m_d3dContext->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
@@ -275,8 +283,8 @@ void Game::OnWindowSizeChanged(int width, int height)
 void Game::GetDefaultSize(int& width, int& height) const noexcept
 {
 	// Change to desired default window size (note minimum size is 320x200).
-	width = m_world.getLevel(m_level).size.x * m_scale;
-	height = m_world.getLevel(m_level).size.y * m_scale;
+	width = static_cast<int>(m_world.getLevel(m_level).size.x * m_scale);
+	height = static_cast<int>(m_world.getLevel(m_level).size.y * m_scale);
 }
 
 // These are the resources that depend on the device.
@@ -442,7 +450,6 @@ void Game::CreateResources()
 		swapChainDesc.SampleDesc.Quality = 0;
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.BufferCount = backBufferCount;
-		// TODO make this configurable for win 10 vs older versions
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC fsSwapChainDesc = {};
