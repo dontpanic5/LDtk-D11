@@ -24,7 +24,6 @@ using Microsoft::WRL::ComPtr;
 
 Game::Game() noexcept :
 	m_window(nullptr),
-	// TODO WHY IS THIS HERE IF IT'S NOT USED?
 	m_outputWidth(1600),
 	m_outputHeight(800),
 	m_featureLevel(D3D_FEATURE_LEVEL_9_1)
@@ -275,9 +274,9 @@ void Game::OnWindowSizeChanged(int width, int height)
 // Properties
 void Game::GetDefaultSize(int& width, int& height) const noexcept
 {
-	// TODO: Change to desired default window size (note minimum size is 320x200).
-	width = 1600;
-	height = 800;
+	// Change to desired default window size (note minimum size is 320x200).
+	width = m_world.getLevel(m_level).size.x * m_scale;
+	height = m_world.getLevel(m_level).size.y * m_scale;
 }
 
 // These are the resources that depend on the device.

@@ -43,7 +43,7 @@ void EntityWrapper::Move(float elapsedTime)
 
 	auto& patrol = m_entity.getArrayField<ldtk::IntPoint>("patrol");
 
-	// I travel 32 pixels in one second TODO make move speed variable
+	// I travel 32 pixels in one second
 	float travel_distance = elapsedTime * 32;
 
 	auto leg_dist = GetLegDist();

@@ -231,7 +231,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 SetWindowLongPtr(hWnd, GWL_STYLE, WS_OVERLAPPEDWINDOW);
                 SetWindowLongPtr(hWnd, GWL_EXSTYLE, 0);
 
-                // TODO WHY IS THIS HERE IF IT'S NOT USED?
                 int width = 1600;
                 int height = 800;
                 if (game)

@@ -93,5 +93,7 @@ private:
     ldtk::World m_world;
     std::string m_level;
 
+    float m_scale = 2;
+
     std::map <std::string, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_tileset_textures;
 };
