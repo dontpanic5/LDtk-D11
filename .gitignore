@@ -370,3 +370,4 @@ lib/
 CMakeCache.txt
 *.ldtk
 share/
+CMakeSettings.json
