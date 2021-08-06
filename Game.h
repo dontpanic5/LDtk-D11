@@ -21,7 +21,7 @@ class Game
 {
 public:
 
-    Game() noexcept;
+    Game(const std::wstring& file) noexcept;
     ~Game() = default;
 
     Game(Game&&) = default;

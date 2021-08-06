@@ -62,3 +62,63 @@ std::wstring Utf8ToUtf16(const std::string& utf8)
 
 	return utf16;
 }
+
+std::string Utf16ToUtf8(const std::wstring& utf16)
+{
+	std::string utf8; // Result
+	if (utf16.empty())
+	{
+		return utf8;
+	}
+
+	if (utf16.length() > static_cast<size_t>((std::numeric_limits<int>::max)()))
+	{
+		throw std::overflow_error(
+			"Input string too long: size_t-length doesn't fit into int.");
+	}
+	const int utf16Length = static_cast<int>(utf16.length());
+	const int utf8Length = ::WideCharToMultiByte(
+		CP_UTF8,
+		0,
+		utf16.data(),
+		utf16Length,
+		nullptr,
+		0,
+		NULL,
+		NULL
+	);
+
+	if (utf8Length == 0)
+	{
+		const DWORD error = ::GetLastError();
+		throw Utf8ConversionException(
+			"Cannot get result sring length when converting " \
+			"from UTF-16 to UTF-8 (WideCharToMultiByte failed).",
+			error
+		);
+	}
+
+	utf8.resize(utf8Length);
+
+	int result = ::WideCharToMultiByte(
+		CP_UTF8,
+		0,
+		utf16.data(),
+		utf16Length,
+		&utf8[0],
+		utf8Length,
+		NULL,
+		NULL
+	);
+
+	if (result == 0)
+	{
+		const DWORD error = ::GetLastError();
+		throw Utf8ConversionException(
+			"Cannot convert from UTF-16 to UTF-8 "\
+			"(WideCharToMultiByte failed).",
+			error);
+	}
+	
+	return utf8;
+}

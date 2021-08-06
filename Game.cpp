@@ -22,13 +22,13 @@ using namespace DirectX::SimpleMath;
 
 using Microsoft::WRL::ComPtr;
 
-Game::Game() noexcept :
+Game::Game(const std::wstring& file) noexcept :
 	m_window(nullptr),
 	m_outputWidth(1600),
 	m_outputHeight(800),
 	m_featureLevel(D3D_FEATURE_LEVEL_9_1)
 {
-	m_world.loadFromFile("AutoLayers_1_basic.ldtk");
+	m_world.loadFromFile(Utf16ToUtf8(file));
 	const auto& all_levels = m_world.allLevels();
 	const auto& level = all_levels[0];
 	m_level = level.name;
